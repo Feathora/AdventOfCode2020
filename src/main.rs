@@ -1,8 +1,8 @@
 use std::env;
 use std::fs;
 
-mod day2;
-use day2::solve;
+mod day3;
+use day3::solve;
 
 fn main() 
 {
