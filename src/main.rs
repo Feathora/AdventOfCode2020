@@ -1,8 +1,8 @@
 use std::env;
 use std::fs;
 
-mod day3;
-use day3::solve;
+mod day4;
+use day4::solve;
 
 fn main() 
 {
@@ -11,5 +11,6 @@ fn main()
 
     let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
 
-    solve(&contents);
+    let results = solve(&contents);
+    println!("Result 1: {}\nResult 2: {}", results.0, results.1);
 }
