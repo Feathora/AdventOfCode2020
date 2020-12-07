@@ -1,0 +1,60 @@
+use std::collections::HashMap;
+use std::rc::Rc;
+use std::cell::*;
+
+struct Bag
+{
+    //colour:String,
+    bags:HashMap<String, Rc<Bag>>
+}
+
+pub fn solve(contents:&String) -> (u32, u32)
+{
+    let mut all_bags:HashMap<String, Rc<RefCell<Bag>>> = HashMap::new();
+    let mut root_bags:HashMap<String, Ref<Bag>> = HashMap::new();
+
+    for rule in contents.lines()
+    {
+        let mut rule_parts = rule.split("contain");
+        let mut containing_bag_parts = rule_parts.nth(0).expect("No first part").split_whitespace();
+        let containing_bag_colour = format!("{} {}", containing_bag_parts.nth(0).expect("No first colour part"), containing_bag_parts.nth(0).expect("No second colour part"));
+
+        let containing_bag = all_bags.entry(containing_bag_colour.to_string()).or_insert(Rc::new(RefCell::new(Bag
+        {
+            //colour: containing_bag_colour,
+            bags: HashMap::new()
+        })));
+
+        root_bags.insert(containing_bag_colour.to_string(), containing_bag.borrow());
+
+        let contained_rule_part = rule_parts.nth(0).expect("No second rule part");
+        if contained_rule_part.contains("no other bags")
+        {
+            continue;
+        }
+
+        let contained_bags:Vec<&str> = contained_rule_part.split(',').collect();
+        for contained_bag in contained_bags
+        {
+            let contained_bag_parts:Vec<&str> = contained_bag.split_whitespace().collect();
+            let contained_bag_colour = format!("{} {}", contained_bag_parts[1], contained_bag_parts[2]);
+
+            let contained_bag = all_bags.entry(contained_bag_colour.to_string()).or_insert(Rc::new(RefCell::new(Bag
+            {
+                bags: HashMap::new()
+            })));
+
+            //containing_bag.bags.insert(contained_bag_colour.to_string(), Rc::clone(contained_bag));
+        }
+
+        println!("Containing bag colour: {}", containing_bag_colour);
+        break;
+    }
+
+    return (puzzle1(&root_bags), 0);
+}
+
+fn puzzle1(bags:&HashMap<String, Ref<Bag>>) -> u32
+{
+    return 0;
+}
