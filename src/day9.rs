@@ -50,14 +50,8 @@ fn puzzle2(numbers:&Vec<u64>, invalid:u64) -> u64
         {
             n += numbers[j];
 
-            if numbers[j] < l
-            {
-                l = numbers[j];
-            }
-            if numbers[j] > h
-            {
-                h = numbers[j];
-            }
+            l = std::cmp::min(numbers[j], l);
+            h = std::cmp::max(numbers[j], h);
 
             j += 1;
         }
