@@ -55,41 +55,6 @@ fn resolve(expression:&mut String, start_index:usize, calc:fn(&str) -> u64)
 
         i += 1;
     }
-
-    //return calculate(expression);
-
-    /*let index = expression.find('(');
-    if index == None
-    {
-        println!("Return: {}", eval(&expression).unwrap().as_u64().unwrap());
-        return eval(&expression).unwrap().as_u64().unwrap();
-    }
-    else
-    {
-        let start = index.unwrap();
-        for i in start + 1..expression.len()
-        {
-            let c = expression.chars().nth(i).unwrap();
-            if c == ')'
-            {
-                let sub = &expression[start + 1..i];
-                let resolved = resolve(&mut String::from(sub));
-                expression.replace_range(start..=i, &resolved.to_string());
-                println!("Expression: {}", expression);
-
-                break;
-            }
-            else if c == '('
-            {
-                let sub = &expression[start + 1..];
-                let resolved = resolve(&mut String::from(sub));
-                println!("Resolved: {}", resolved);
-                break;
-            }
-        }
-    }
-
-    return 0;*/
 }
 
 fn calculate1(expression:&str) -> u64
@@ -108,7 +73,6 @@ fn calculate1(expression:&str) -> u64
         }
     }
     return lhs;
-    //return eval(&expression).unwrap().as_u64().unwrap();
 }
 
 fn calculate2(expression:&str) -> u64
